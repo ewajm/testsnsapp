@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "594139805141",
+    "firebase_url": "https://testsnnproject.firebaseio.com",
+    "project_id": "testsnnproject",
+    "storage_bucket": "testsnnproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594139805141:android:7af736dffbefcc18",
+        "android_client_info": {
+          "package_name": "com.amazonaws.androidtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594139805141-dj0upo1ikou5uke7ou234jkmbg83m17j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAddeL0XTdDw2miM_kHXaca9Oz2R-TS4-c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594139805141:android:517e06222e4610da",
+        "android_client_info": {
+          "package_name": "com.manekej.testsnsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594139805141-dj0upo1ikou5uke7ou234jkmbg83m17j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAddeL0XTdDw2miM_kHXaca9Oz2R-TS4-c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
