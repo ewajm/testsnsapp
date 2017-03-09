@@ -1,12 +1,14 @@
 package com.manekej.testsnsapp.tools;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.model.CreatePlatformApplicationRequest;
 import com.amazonaws.services.sns.model.CreatePlatformApplicationResult;
+import com.manekej.testsnsapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +48,6 @@ public class AWSCreateApplicationTask extends AsyncTask<String, Void,  CreatePla
         try {
 
             CreatePlatformApplicationRequest request = new CreatePlatformApplicationRequest();
-            Log.i(TAG, "doInBackground: inside task" + applicationName + " " + credential);
             Map<String, String> attributes = new HashMap<String, String>();
             attributes.put("PlatformPrincipal", principal);
             attributes.put("PlatformCredential", credential);
@@ -70,11 +71,11 @@ public class AWSCreateApplicationTask extends AsyncTask<String, Void,  CreatePla
         if(result != null) {
             Log.i(TAG, "onPostExecute: " + result.getPlatformApplicationArn());
 
-//            SharedPreferences prefs = context.getSharedPreferences( “my_prefs” , Context.MODE_PRIVATE );
-//
-//            String endpointArn = result.getEndpointArn();
-//
-//            prefs.edit().putString( context.getString(R.string.endpoint_arn), endpointArn ).apply();
+            SharedPreferences prefs = context.getSharedPreferences( "my_prefs" , Context.MODE_PRIVATE );
+
+            String platformArn = result.getPlatformApplicationArn();
+
+            prefs.edit().putString( context.getString(R.string.platformArn), platformArn ).apply();
 
         } else {
             Log.i(TAG, "onPostExecute: failed");

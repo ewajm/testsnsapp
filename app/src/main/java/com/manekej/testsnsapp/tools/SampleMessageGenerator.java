@@ -45,7 +45,7 @@ public class SampleMessageGenerator {
 
 	private static Map<String, String> getData() {
 		Map<String, String> payload = new HashMap<String, String>();
-		payload.put("message", "Hello World!");
+		payload.put("title", "Hello World!");
 		return payload;
 	}
 
@@ -54,6 +54,7 @@ public class SampleMessageGenerator {
 		Map<String, Object> androidMessageMap = new HashMap<String, Object>();
 		androidMessageMap.put("collapse_key", "Welcome");
 		androidMessageMap.put("data", getData());
+		androidMessageMap.put("notification", getData());
 		androidMessageMap.put("delay_while_idle", true);
 		androidMessageMap.put("time_to_live", 125);
 		androidMessageMap.put("dry_run", false);

@@ -12,16 +12,30 @@
     tools:context="com.manekej.testsnsapp.MainActivity">
 
     <Button
+        android:text="sendNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendButton"
+        android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+    <Button
         android:text="Log Token"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/logTokenButton" android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:id="@+id/logTokenButton"
+        android:layout_marginBottom="15dp"
+        android:layout_above="@+id/createEndpointButton" android:layout_centerHorizontal="true"/>
     <Button
-        android:text="sendNotification"
+        android:text="Create Endpoint"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_below="@+id/logTokenButton"
-        android:layout_alignRight="@+id/logTokenButton"
-        android:layout_alignEnd="@+id/logTokenButton" android:layout_marginTop="14dp"
-        android:id="@+id/sendButton"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/createEndpointButton"
+        android:layout_alignBottom="@+id/sendButton" android:layout_centerHorizontal="true"
+        android:layout_marginBottom="51dp"/>
+    <Button
+        android:text="Remove Endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" android:id="@+id/removeEndpointButton"
+        android:layout_below="@+id/sendButton" android:layout_alignRight="@+id/createEndpointButton"
+        android:layout_alignEnd="@+id/createEndpointButton"/>
 </RelativeLayout>

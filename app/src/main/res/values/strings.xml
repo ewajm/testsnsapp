@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TestSnsApp</string>
+    <string name="platformArn">platform_arn</string>
+    <string name="endpoint_arn">endpoint_arn</string>
 </resources>

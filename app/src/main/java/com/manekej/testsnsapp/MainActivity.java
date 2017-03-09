@@ -1,5 +1,7 @@
 package com.manekej.testsnsapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,18 +9,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClient;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.manekej.testsnsapp.tools.AWSCreateApplicationTask;
-import com.manekej.testsnsapp.tools.AmazonSNSClientWrapper;
+import com.manekej.testsnsapp.tools.AWSCreateEndpointTask;
+import com.manekej.testsnsapp.tools.AWSPublishNotificationTask;
+import com.manekej.testsnsapp.tools.AWSRemoveEndpointTask;
+
+//TODO: abstract to any endpoint
 
 public class MainActivity extends AppCompatActivity {
     AmazonSNS mSns;
     private static final String TAG = MainActivity.class.getSimpleName();
+    private String mEndpointArn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +48,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button sendButton = (Button) findViewById(R.id.sendButton);
-        mSns = new AmazonSNSClient(new BasicAWSCredentials("", ""));
-        final AmazonSNSClientWrapper wrapper = new AmazonSNSClientWrapper(mSns);
+        Button createEndpointButton = (Button) findViewById(R.id.createEndpointButton);
+        Button removeEndpointButton = (Button) findViewById(R.id.removeEndpointButton);
+        mSns = new AmazonSNSClient(credentialsProvider);
+        new AWSCreateApplicationTask(this, mSns).execute("testsnsapp", "", "apiKey");
+        final SharedPreferences prefs = this.getSharedPreferences("my_prefs",  Context.MODE_PRIVATE);
+        mEndpointArn = prefs.getString(this.getString(R.string.endpoint_arn), "");
+        Log.i(TAG, "onCreate: " + mEndpointArn);
+        createEndpointButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mEndpointArn == null || mEndpointArn.length() == 0) {
+                    new AWSCreateEndpointTask(getApplicationContext(), mSns).execute("registration id", "Me");
+                }
+            }
+        });
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AWSCreateApplicationTask(getApplicationContext(), mSns).execute("testsnsapp", "", "");
+                new AWSPublishNotificationTask(getApplicationContext(), mSns).execute(mEndpointArn);
+            }
+        });
+        removeEndpointButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick: " + new AWSRemoveEndpointTask(getApplicationContext(), mSns).execute(mEndpointArn));
+                mEndpointArn = "";
             }
         });
 
     }
 
-    public void demoAndroidAppNotification(AmazonSNSClientWrapper snsClientWrapper) {
-        // TODO: Please fill in following values for your application. You can
-        // also change the notification payload as per your preferences using
-        // the method
-        // com.amazonaws.sns.samples.tools.SampleMessageGenerator.getSampleAndroidMessage()
-        String serverAPIKey = "";
-        String applicationName = "testsnsapp";
-        String registrationId = "";
-        snsClientWrapper.demoNotification("", serverAPIKey,
-                registrationId, applicationName);
-    }
-    //
 }
